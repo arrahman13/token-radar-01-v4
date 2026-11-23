@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Token Radar — pre-token launch radar</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<header>
+  <div class="brand">
+    <span class="logo">&#9673;</span>
+    <div>
+      <h1>TOKEN RADAR</h1>
+      <p>Pre-token launch radar &middot; DefiLlama snapshot <span id="asOf"></span> &middot; every number on this page is recomputed in your browser from the sealed snapshot by the same model that wrote board.json</p>
+    </div>
+  </div>
+  <div class="integrity" id="integrity">recomputing board from the snapshot&hellip;</div>
+</header>
+
+<section class="stats" id="stats"></section>
+<div class="acct"><div class="acctbar" id="acctBar"></div><div class="acctlegend" id="acctLegend"></div></div>
+
+<main id="boardView">
+  <section class="pane">
+    <div class="controls">
+      <input id="q" type="search" placeholder="Search name or slug">
+      <select id="fCat"><option value="">All categories</option></select>
+      <select id="fChain"><option value="">All chains</option></select>
+      <span class="tabs">
+        <button class="tab on" data-tab="all">All</button><button class="tab" data-tab="watch">Watchlist</button><button class="tab" data-tab="early">Early</button><button class="tab" data-tab="farm">FARM verdicts</button>
+      </span>
+      <label class="planlab">Plan size <select id="fPlan"></select></label>
+      <button id="expCsv">CSV</button><button id="expJson">JSON</button>
+    </div>
+    <div class="countline" id="countLine"></div>
+    <table id="board">
+      <thead><tr>
+        <th data-k="rank">#</th><th data-k="name">Protocol</th><th data-k="tvl">TVL</th>
+        <th data-k="change7d">7d %</th><th data-k="ageYears">No-token age</th><th data-k="odds">Launch odds</th>
+        <th data-k="months">When &asymp;</th><th data-k="implied">Implied value</th>
+        <th data-k="perHour">Farm $/h</th><th data-k="verdict">Verdict</th>
+      </tr></thead>
+      <tbody id="tbody"></tbody>
+    </table>
+    <div class="rollups" id="rollups"></div>
+    <div id="basketSlot"></div>
+  </section>
+  <aside class="rail" id="rail"></aside>
+</main>
+
+<section id="detail" hidden></section>
+
+<footer>
+  <p><b>How to read this board.</b> Implied value = TVL &times; a fitted value multiple &times; fitted launch odds. The multiple is a regression of ln(market cap / TVL) on the 87 traded peers with a market cap of at least $5M; the odds are a logistic fit on the 645 dated protocols (327 record a token by the snapshot date). A protocol is listed as recording no token, never as having none. Farm economics assume a launch gives 5% of implied value to farmers and competing farm capital of 8% of TVL; verdicts: FARM when expected net &ge; $75 and &ge; $25/h, MARGINAL when net &gt; 0, else SKIP. Full method, the whole admission search and every rejected term are in the rail.</p>
+</footer>
+
+<script src="model.js"></script>
+<script src="zz-snapshot-data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
